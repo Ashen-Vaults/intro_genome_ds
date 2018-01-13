@@ -1,0 +1,30 @@
+you should consider using list comprehensions. 
+
+      
+    def pattern_count(text, pattern):
+        return len([x for x in range(len(text) - len(pattern) + 1) if pattern in text[x:len(pattern) + x]])
+
+
+    def frequent_words(text, k):
+        counts = [pattern_count(text, text[x:x + k]) for x in range(len(text) - k)]
+        return set([text[x:x + k] for x in range(len(text) - k) if counts[x] == max(counts)])
+
+**pattern_count** will parse a string for a pattern. We splice the text character array, so we can check if that portion contains the pattern. This allows us to include overlapping entries in our results. For instance,
+
+*pattern_count(ABABA, ABA)* -> results in 2, instead of 1.
+
+    print(pattern_count("BABBASDCABCBABDDASDBBCASDBAB", "BAB"))
+    [0] 3
+
+
+**frequent_words** takes the same text but instead of a pattern, we give it an int for how long the pattern should be. Once we get a list of the number of occurrences for each pattern that meets our character **k** requirement, we filter it by taking the entries which occur the most frequently.  Finally, to remove any duplicates, we convert the list into a hashset which inherently prevents duplicate entries, thus returning a collection with only unique values.
+
+Test:
+
+    print(frequent_words("BABBASDCABCBABDDASDBBCASDBAB", 3))
+    [0] {'BAB', 'ASD'}
+
+Hope that was of some use to you.
+
+
+# https://stackoverflow.com/questions/45134846/implementing-frequent-words-pseudocode
