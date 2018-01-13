@@ -1,5 +1,5 @@
 def pattern_matching(text, pattern):
-    return [x for x in range(len(text) - len(pattern) + 1) if pattern in text[x:len(pattern) + x]]
+    return [[x, str(len(pattern) + x)] for x in range(len(text) - len(pattern) + 1) if pattern in text[x:len(pattern) + x]]
 
 
 def frequent_words(text, k):
@@ -17,11 +17,11 @@ def reverse_complement(pattern):
 def find_invert_repeats(text, pattern_size):
     freqs = frequent_words(text, pattern_size)
     rev_freqs = frequent_words(reverse_complement(text), pattern_size)
-    vals = set(freqs).intersection(rev_freqs)
-    return vals
+    data = [[x, str(pattern_matching(text,x))] for x in set(freqs).intersection(rev_freqs)]
+    return data
 
 
-# print(pattern_matching("GATATATGCATATACTT", "ATAT"))
-# print(frequent_words("BABBASDCABCBABDDASDBBCASDBAB", 3))
-# print(reverse_complement("AGGGTTTCCCTGACCTTCACTGCAGGTCATGCA"))  # -> ACCGGGTTTT
+#print([x[0] for x in pattern_matching("GATATATGCATATACTT", "ATAT")])
+#print(frequent_words("BABBASDCABCBABDDASDBBCASDBAB", 3))
+#print(reverse_complement("AGGGTTTCCCTGACCTTCACTGCAGGTCATGCA"))  # -> ACCGGGTTTT
 print(find_invert_repeats("AGGGTTTCCCTGACCTTCACTGCAGGTCATGCA", 6))
