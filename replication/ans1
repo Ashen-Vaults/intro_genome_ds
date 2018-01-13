@@ -1,9 +1,0 @@
-I think a more "pythonic" solution would be to use list comprehensions.
-
-    def pattern_count(text, pattern):
-        matches = [x for x in range(len(text) - len(pattern)+1) if pattern in text[x:len(pattern)+x]]
-        return len(matches)
-
-
-
-# https://stackoverflow.com/questions/26703321/python-pattern-count-find-a-hidden-message-in-the-replication-origin/48199827#
